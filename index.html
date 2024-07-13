@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: #ff99cc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        #balloonButton {
+            background-color: #ff66b2;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+
+        #balloonContainer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .balloon {
+            position: absolute;
+            bottom: -150px;
+            width: 50px;
+            height: 70px;
+            background-color: rgba(255, 0, 0, 0.7);
+            border-radius: 50% 50% 50% 50%;
+            animation: floatUp 10s linear infinite;
+            opacity: 0.8;
+        }
+
+        .balloon::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            width: 2px;
+            height: 15px;
+            background-color: rgba(255, 0, 0, 0.7);
+            transform: translateX(-50%);
+        }
+
+        @keyframes floatUp {
+            0% {
+                bottom: -150px;
+                opacity: 0.8;
+            }
+            100% {
+                bottom: 110%;
+                opacity: 0;
+            }
+        }
+
+        .birthday-image {
+            max-width: 300px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="birthday_image.png" alt="Birthday Image" class="birthday-image">
+        <h1>Happy Birthday!</h1>
+        <button id="balloonButton">Release Balloons</button>
+        <audio id="birthdayMusic" controls autoplay>
+            <source src="happy_birthday.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <div id="balloonContainer"></div>
+    </div>
+
+    <script>
+        document.getElementById('balloonButton').addEventListener('click', releaseBalloons);
+
+        function releaseBalloons() {
+            const container = document.getElementById('balloonContainer');
+            for (let i = 0; i < 30; i++) {
+                const balloon = document.createElement('div');
+                balloon.classList.add('balloon');
+                balloon.style.left = `${Math.random() * 100}%`;
+                balloon.style.backgroundColor = getRandomColor();
+                container.appendChild(balloon);
+            }
+        }
+
+        function getRandomColor() {
+            const colors = ['#FF6666', '#FFB266', '#FFFF66', '#66FF66', '#66FFFF', '#6666FF', '#FF66FF'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+    </script>
+</body>
+</html>
